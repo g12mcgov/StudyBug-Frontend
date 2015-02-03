@@ -1,5 +1,5 @@
 # StudyBug-Frontend
-A (albeit lame) web interface to StudyBug.
+An (albeit lame) web interface to StudyBug.
 
 Right now, it looks like this:
 
