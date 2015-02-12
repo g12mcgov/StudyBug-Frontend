@@ -34,15 +34,6 @@
 	text-align: center;
 }
 
-
-/* Bootstrap Override */
-.row {
-	margin-right: 0px;
-	margin-left: 0px;
-}
-/**********************/
-
-
 /* IDs */
 #titleText {
 	font-size: 26px;
