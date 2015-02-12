@@ -14,7 +14,7 @@
 }
 
 .mainTitle img {
-	width: 400px;
+	width: 300px;
 }
 
 .mainTitle hr {
@@ -33,6 +33,14 @@
 .mainPanel li {
 	text-align: center;
 }
+
+
+/* Bootstrap Override */
+.row {
+	margin-right: 0px;
+	margin-left: 0px;
+}
+/**********************/
 
 
 /* IDs */
