@@ -1,0 +1,14 @@
+Django==1.5.4
+boto==2.36.0
+dj-database-url==0.3.0
+dj-static==0.0.6
+django-lockdown==1.0
+django-storages==1.1.8
+django-toolbelt==0.0.1
+djangotoolbox==1.6.2
+gunicorn==19.2.0
+mongoengine==0.8.7
+psycopg2==2.5.4
+pymongo==2.8
+static3==0.5.1
+wsgiref==0.1.2

@@ -1,10 +1,28 @@
 # Django settings for StudyBugWeb project.
 import os
+import boto
+from mongoengine import connect
+
+## S3 Boto Storage
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+## AWS Info
+AWS_ACCESS_KEY_ID = 'AKIAJZZ73FSF4F6XULUA'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'studybug'
+AWS_PRELOAD_METADATA = True # necessary to fix manage.py collectstatic command to only upload changed files instead of all files
+
+STATIC_URL = 'http://studybug.s3.amazonaws.com/static/'
+# ADMIN_MEDIA_PREFIX = 'https://studybug.s3.amazonaws.com/static/admin/'
 
 SETTINGS_DIR = os.path.dirname(__file__)
 
 PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
 PROJECT_PATH = os.path.abspath(PROJECT_PATH)
+
+# URL prefix for static files.
+# Example: "http://example.com/static/", "http://static.example.com/"
 
 # Path to our HTML templates
 TEMPLATE_PATH = os.path.join(PROJECT_PATH, 'templates')
@@ -20,17 +38,41 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+#DATABASES = {'default': dj_database_url.config(default='mongodb://admin:nantucket@ds041581.mongolab.com:41581/heroku_app33177236')}
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_mongodb_engine', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+#         'NAME': 'heroku_app33177236',                      # Or path to database file if using sqlite3.
+#         # The following settings are not used with sqlite3:
+#         # 'USER': 'admin',
+#         # 'PASSWORD': '',
+#         'HOST': 'mongodb://admin:nantucket@ds041581.mongolab.com:41581/heroku_app33177236',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+#         #'PORT': '',                      # Set to empty string for default.
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'ENGINE': 'django.db.backends.dummy',
+        # 'NAME': '',
+        # 'USER': '',
+        # 'HOST': '',
+        # 'PORT': '',
     }
 }
+
+## Mongo 
+AUTHENTICATION_BACKENDS = (
+    'mongoengine.django.auth.MongoEngineBackend',
+)
+
+SESSION_ENGINE = 'mongoengine.django.sessions'
+
+MONGO_DATABASE_NAME = 'heroku_app33177236'
+
+## Connect to Mongo passing MONGO_HOST
+#connect(MONGO_DATABASE_NAME, host="mongodb://admin:nantucket@ds041581.mongolab.com:41581/heroku_app33177236")
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -72,18 +114,18 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(PROJECT_PATH,'static/')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    STATIC_PATH,
+    STATIC_URL,
 )
 
 # List of finder classes that know how to find static files in
@@ -112,6 +154,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ## Mongo Session Handler 
+    'django.contrib.sessions.middleware.SessionMiddleware',
 )
 
 ROOT_URLCONF = 'StudyBugWeb.urls'
@@ -137,10 +181,13 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'django.contrib.sessions',
     'studybug',
 )
 
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+#SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

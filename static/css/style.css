@@ -1,8 +1,12 @@
 /*
-* Party & Bullshit.
+* Author: Grant McGovern
+* Date: 9 Feb 2015;
+*
+* ~ The StudyBug Web app ~
 *
 */
 
+/* Classes */
 .mainTitle {
 	margin-top: 20px;
 	text-align: center;
@@ -21,6 +25,17 @@
 	text-align: center;
 }
 
+.mainPanel ul {
+	text-align: center;
+	list-style-type: none;
+}
+
+.mainPanel li {
+	text-align: center;
+}
+
+
+/* IDs */
 #titleText {
 	font-size: 26px;
 }

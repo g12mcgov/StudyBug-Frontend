@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+
 {% load static %}
+
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/css/style.css">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -10,13 +12,14 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 </head>
 <body>
+	<!-- Insert our StudyBug logo -->
 	<div class='mainTitle'>
-		<img src="{{STATIC_URL}}/img/logo.png">
+		<img src="{{ STATIC_URL }}img/logo.png">
 		<hr>
 		<br>
 	</div>
 
-	<!-- Our Grid System -->
+	<!-- Bootstrap Grid System -->
 	<div class="row">
 		<div class="col-md-4"></div>
 		<div class="col-md-4">
@@ -24,18 +27,31 @@
 			  <div class="panel-body mainPanel">
 			    <p id="titleText"><b>Study Rooms for Today</b></p>
 			    <b><p id="date"></p></b>
-			    <p id="room"><b>203a</b></p>
-			    <p id="times"><b>4:00pm - 12:00am</b></p>
+			    <p id="room"><b>{{ roomNumber }}</b></p>
+
+			    <!-- Use Django Template System to output list of rooms -->
+			    <ul style="text-align:center; list-style-type:none;">
+			    {% if dataType == "list" %}
+					{% for item in timeRange %}
+					  <li>{{ item }}</li>
+					{% endfor %}
+				{% else %}
+					<li>{{ timeRange }}</li>
+				{% endif %}
+				</ul>
+
 			  </div>
 			</div>
 		</div>
 		<div class="col-md-4"></div>
 	</div>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-	<script src="{{STATIC_URL}}/includes/moment.min.js" type="text/javascript"></script>
+	<script src="{{ STATIC_URL }}includes/moment.min.js" type="text/javascript"></script>
 	<script>
+	// A simple script to inject the current date into the homepage 
 	$(document).ready(function() {
 	     $("#date").text( moment().format('MMMM, Do YYYY') );
 	});
