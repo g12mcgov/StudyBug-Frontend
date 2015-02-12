@@ -8,8 +8,8 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 ## AWS Info
-AWS_ACCESS_KEY_ID = 'AKIA6XULUA'
-AWS_SECRET_ACCESS_KEY = 'HvJUSPYXyOKPeDOD'
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
 AWS_STORAGE_BUCKET_NAME = 'studybug'
 AWS_PRELOAD_METADATA = True # necessary to fix manage.py collectstatic command to only upload changed files instead of all files
 
