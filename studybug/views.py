@@ -32,8 +32,8 @@ def index(request):
     ## what has been the most annoying headache ever setting up MongoEngine to persist
     ## for the app's lifespan.
     
-    username = "admin"
-    password = "nantucket"
+    username = ""
+    password = ""
 
     # Establish a connection to Mongo 
     client = pymongo.MongoClient("mongodb://" + username + ":" + password + "@ds041581.mongolab.com:41581/heroku_app33177236")
